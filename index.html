@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mensagens WhatsApp — Gênesis Azulejista</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#ffd400;--text:#e6eef8}
+    body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:linear-gradient(180deg,#071025 0%, #081827 100%); color:var(--text); margin:0; padding:24px}
+    .container{max-width:820px;margin:0 auto}
+    h1{font-size:20px;margin:0 0 12px}
+    p.lead{margin:0 0 18px;color:#bcd3ee}
+    .card{background:rgba(255,255,255,0.03);border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+    .msg {width:100%;min-height:88px;border-radius:8px;padding:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text);resize:vertical;font-size:15px}
+    .controls{display:flex;gap:8px;margin-top:8px}
+    button{background:var(--accent);border:0;padding:8px 12px;border-radius:8px;font-weight:600;color:#071025;cursor:pointer}
+    .btn-secondary{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.06)}
+    .small{font-size:13px;color:#a9c0e8}
+    .top-actions{display:flex;gap:8px;justify-content:flex-end;margin-bottom:10px}
+    footer{margin-top:18px;color:#9fb7e6;font-size:13px}
+    @media(max-width:520px){.controls{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Mensagens prontas para WhatsApp — Gênesis Azulejista</h1>
+    <p class="lead">Clique em "Copiar" para colar direto na conversa com o cliente. As quebras de linha estão preservadas.</p>
+
+    <div class="card">
+      <strong>Mensagem 1 — Resposta inicial</strong>
+      <textarea id="msg1" class="msg">Olá, tudo bem? Obrigado por chamar!
+Sou Gênesis Azulejista, especialista em porcelanato lastra e acabamento fino.
+Pode me enviar por gentileza 2 coisas?
+1️⃣ Foto do ambiente
+2️⃣ Medidas aproximadas
+Assim já preparo seu orçamento direitinho.</textarea>
+      <div class="controls">
+        <button onclick="copyText('msg1')">Copiar</button>
+        <button class="btn-secondary" onclick="openWhatsApp('msg1')">Abrir no WhatsApp</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <strong>Mensagem 2 — Criar confiança</strong>
+      <textarea id="msg2" class="msg">Perfeito! Já vi aqui.
+Trabalho com serviço limpo, alinhamento perfeito e garantia.
+Termino no prazo combinado e te passo tudo detalhado.
+Me confirma por favor (m²) ou tamanho do cômodo?</textarea>
+      <div class="controls">
+        <button onclick="copyText('msg2')">Copiar</button>
+        <button class="btn-secondary" onclick="openWhatsApp('msg2')">Abrir no WhatsApp</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <strong>Mensagem 3 — Oferta para fechar</strong>
+      <textarea id="msg3" class="msg">Consegui fazer um valor especial pra você fechar hoje.
+Se desejar, já deixo agendado e separo seu horário.
+Quer aproveitar esse desconto e garantir a data?</textarea>
+      <div class="controls">
+        <button onclick="copyText('msg3')">Copiar</button>
+        <button class="btn-secondary" onclick="openWhatsApp('msg3')">Abrir no WhatsApp</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <strong>Mensagem 4 — Quando o cliente some</strong>
+      <textarea id="msg4" class="msg">Oi, tudo bem?
+Só passando para te lembrar do orçamento.
+Se desejar, posso melhorar um pouquinho para fechar hoje e garantir sua vaga no meu calendário.</textarea>
+      <div class="controls">
+        <button onclick="copyText('msg4')">Copiar</button>
+        <button class="btn-secondary" onclick="openWhatsApp('msg4')">Abrir no WhatsApp</button>
+      </div>
+    </div>
+
+    <div class="top-actions">
+      <button onclick="copyAll()">Copiar todas as mensagens</button>
+      <button class="btn-secondary" onclick="downloadFile()">Baixar HTML</button>
+    </div>
+
+    <footer>Dica: no celular, segure o campo de texto do WhatsApp e escolha "colar". Se usar o botão "Abrir no WhatsApp", confirme o número no app.</footer>
+  </div>
+
+  <script>
+    function copyText(id){
+      const el = document.getElementById(id);
+      el.select();
+      el.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(el.value).then(()=>{
+        alert('Copiado! Agora cole na conversa do WhatsApp.');
+      }).catch(()=>{
+        document.execCommand('copy');
+        alert('Copiado!');
+      });
+    }
+
+    function copyAll(){
+      const all = [document.getElementById('msg1').value, document.getElementById('msg2').value, document.getElementById('msg3').value, document.getElementById('msg4').value].join('\n\n---\n\n');
+      navigator.clipboard.writeText(all).then(()=>alert('Todas as mensagens copiadas!'));
+    }
+
+    function openWhatsApp(id){
+      const text = encodeURIComponent(document.getElementById(id).value);
+      // Abre o web.whatsapp com mensagem pronta. Usuário escolhe o contato dentro do app.
+      const url = 'https://wa.me/?text=' + text;
+      window.open(url, '_blank');
+    }
+
+    function downloadFile(){
+      const content = document.documentElement.outerHTML;
+      const blob = new Blob([content], {type: 'text/html'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'Mensagens_WhatsApp_Genesis_Azulejista.html';
+      a.click();
+    }
+  </script>
+</body>
+</html>
